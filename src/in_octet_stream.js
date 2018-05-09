@@ -25,6 +25,10 @@ SOFTWARE.
 */
 export class InOctetStream {
   constructor(arrayBuffer) {
+    if (arrayBuffer instanceof Uint8Array) {
+      arrayBuffer = arrayBuffer.buffer;
+    }
+
     this.buffer = arrayBuffer;
     let view = new DataView(this.buffer, 0);
     this.view = view;
@@ -47,6 +51,13 @@ export class InOctetStream {
     const a = this.view.getUint32(this.position, false);
     this.position += 4;
     return a;
+  }
+
+  readOctets(octetLength) {
+    const sliced = this.buffer.slice(this.position, this.position + octetLength);
+    const octetArray = new Uint8Array(sliced);
+    this.position += octetLength;
+    return octetArray;
   }
 
   readUint64(a) {

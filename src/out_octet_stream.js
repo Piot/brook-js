@@ -51,6 +51,12 @@ export class OutOctetStream {
     writeUint32(0);
   }
 
+  writeOctets(octets) {
+    for (let i = 0; i < octets.length; ++i) {
+      this.writeUint8(octets[i]);
+    }
+  }
+
   copyArrayBuffer(src, len) {
     return src.slice(0, len)
   }

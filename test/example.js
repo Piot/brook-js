@@ -96,4 +96,23 @@ function testInOutBit() {
   }
 }
 
-testInOutBit();
+function testInOctet() {
+  const array = new Uint8Array([0xff, 0x33, 0x48, 0xca]);
+  let o = new OutOctetStream();
+  o.writeOctets(array);
+  const payload = o.close();
+
+  const i = new InOctetStream(payload);
+  i.readUint8();
+  const octets = i.readOctets(2);
+  if (octets.length !== 2) {
+    throw 'wrong size';
+  }
+  if (octets[0] !== 0x33 || octets[1] !== 0x48) {
+    throw 'wrong octet';
+  }
+
+  console.log('octet', octets);
+}
+
+testInOctet();
