@@ -71,7 +71,7 @@ export class DebugInBitStream {
   }
 
   readSigned(bitCount) {
-    this.checkType(6, count);
+    this.checkType(6, bitCount);
     return this.bitStream.readSigned(bitCount);
   }
 }
