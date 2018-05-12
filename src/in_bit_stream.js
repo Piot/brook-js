@@ -94,12 +94,24 @@ export class InBitStream {
     return this._readBits(8);
   }
 
+  readInt8() {
+    return this.readSigned(8);
+  }
+
   readUint16() {
     return this._readBits(16);
   }
 
+  readInt16() {
+    return this.readSigned(16);
+  }
+
   readUint32() {
     return this._readBits(32);
+  }
+
+  readInt32() {
+    return this.readSigned(32);
   }
 
   readSigned(bitCount) {

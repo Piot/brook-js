@@ -60,14 +60,27 @@ export class DebugInBitStream {
     return this.bitStream.readUint8();
   }
 
+  readInt8() {
+    throw 'not implemented readInt8'
+  }
+
   readUint16() {
     this.checkType(1, 16);
     return this.bitStream.readUint16();
   }
 
+  readInt16() {
+    this.checkType(2, 16);
+    return this.bitStream.readInt16();
+  }
+
   readUint32() {
     this.checkType(3, 32);
     return this.bitStream.readUint32();
+  }
+
+  readInt32() {
+    throw 'not implemented readInt32'
   }
 
   readSigned(bitCount) {
