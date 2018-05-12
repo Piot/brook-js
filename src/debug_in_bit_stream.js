@@ -61,7 +61,7 @@ export class DebugInBitStream {
   }
 
   readUint16() {
-    this.checkType(2, 16);
+    this.checkType(1, 16);
     return this.bitStream.readUint16();
   }
 
