@@ -30,6 +30,9 @@ import {
 export class InBitStream {
 
   constructor(uint8Array, bitCount) {
+    if (!Number.isInteger(bitCount)) {
+      throw 'bitcount must be integer';
+    }
     const validType = (uint8Array instanceof Uint8Array);
     if (!validType) {
       throw "Invalid octetArray. Must be Uint8Array";

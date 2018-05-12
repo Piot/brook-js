@@ -40,6 +40,10 @@ import {
 } from '../src/in_bit_stream.js'
 
 import {
+  DebugInBitStream
+} from '../src/debug_in_bit_stream.js'
+
+import {
   toHex
 } from '../src/utility.js'
 
@@ -71,6 +75,17 @@ function testOutBit() {
   s.writeBits(0x0fe, 9);
   const payload = s.close();
   console.log('bits:', payload, s.bitCount());
+}
+
+function testDebugInBitStream() {
+  const array = new Uint8Array([0x71, 0x70, 0xA8]);
+  let r = new InBitStream(array, 22);
+  let s = new DebugInBitStream(r);
+  const bits = s.readBits(11);
+  if (bits !== 1066) {
+    throw 'wrong debug'
+  }
+  console.log('bits:', bits);
 }
 
 function testInOutBit() {
@@ -115,4 +130,5 @@ function testInOctet() {
   console.log('octet', octets);
 }
 
-testInOctet();
+testDebugInBitStream();
+// testInOctet();
