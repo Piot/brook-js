@@ -70,6 +70,35 @@ function testInBit() {
   console.log('bits:', bits);
 }
 
+function testInBit24() {
+  const array = new Uint8Array([0x81, 0xd7, 0x0a, 0x1d, 0xa0, 0x6d, 0x3b, 0x40, 0xda, 0x00]);
+  let s = new InBitStream(array, 24 * 3 + 1);
+  const w = s.readBits(1);
+  const x = s.readSigned(24);
+  const y = s.readSigned(24);
+  const z = s.readSigned(24);
+  console.log('x,y,z:', x, y, z);
+}
+
+function writeV(s, v) {
+  const maxValue = 8388608;
+  const bits = parseInt((v * maxValue) / 2400.0);
+  console.log('bits', bits, v);
+  s.writeSigned(bits, 24);
+}
+
+function testOutBit24() {
+  let s = new OutBitStream();
+  s.writeBits(1, 1);
+
+  writeV(s, 69.0);
+  writeV(s, 1111.0);
+  writeV(s, 2222.0);
+
+  const payload = s.close();
+  console.log('o:', toHex(payload), s.bitCount());
+}
+
 function testOutBit() {
   let s = new OutBitStream();
   s.writeBits(0x0fe, 9);
@@ -130,5 +159,6 @@ function testInOctet() {
   console.log('octet', octets);
 }
 
-testDebugInBitStream();
+testOutBit24();
+testInBit24();
 // testInOctet();

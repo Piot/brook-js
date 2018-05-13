@@ -36,6 +36,12 @@ export class OutBitStream {
     if (value < 0) {
       throw 'must write positive numbers';
     }
+    if (!Number.isInteger(bitCount)) {
+      throw `bitcount ${bitCount} must be integer`;
+    }
+    if (!Number.isInteger(value)) {
+      throw 'value must be integer';
+    }
     if (bitCount == 0) {
       return;
     }
@@ -80,6 +86,17 @@ export class OutBitStream {
   }
 
   writeSigned(value, bitCount) {
+    if (!Number.isInteger(bitCount)) {
+      throw `signed bitcount ${bitCount} must be integer`;
+    }
+
+    if (bitCount <= 2) {
+      throw `bitcount must be at least integer 2 ${bitCount}`;
+    }
+
+    if (!Number.isInteger(value)) {
+      throw `signed value ${value} must be integer`;
+    }
     const isSigned = value < 0;
     this._writeBits(isSigned ? 1 : 0, 1);
     this._writeBits(value, bitCount - 1);

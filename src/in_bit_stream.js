@@ -42,7 +42,11 @@ export class InBitStream {
     this.remainingBitCount = 0;
     this.bitCount = bitCount;
     this.octetArray = uint8Array;
+    const arrayOctetCount = uint8Array.byteLength;
     this.octetCount = Math.ceil(bitCount / 8);
+    if (this.octetCount > arrayOctetCount) {
+      throw 'strange octet buffer size';
+    }
   }
 
   _fillAccumulator() {
@@ -67,9 +71,9 @@ export class InBitStream {
     }
 
     const bitsConsumed = Math.min(this.remainingBitCount, requestedBitCount);
-    const mask = (0xffffffff >>> bitsConsumed);
+    const mask = ~(0xffffffff >>> bitsConsumed);
     const shiftCount = 32 - bitsConsumed;
-    const value = (this.accumulator & (mask << shiftCount)) >>> shiftCount;
+    const value = (this.accumulator & mask) >>> shiftCount;
 
     this.accumulator <<= bitsConsumed;
     this.remainingBitCount -= bitsConsumed;
@@ -116,9 +120,9 @@ export class InBitStream {
 
   readSigned(bitCount) {
     const isSigned = this._readBits(1);
-    const value = this._readBits(bitCount - 1);
+    let value = this._readBits(bitCount - 1);
     if (isSigned) {
-      return -value;
+      value = -value;
     }
     return value;
   }

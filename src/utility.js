@@ -25,6 +25,9 @@ SOFTWARE.
 */
 function _toHex(num, len) {
   const str = (Number(num) >>> 0).toString(16);
+  if (len < str.length) {
+    return str;
+  }
   return "0".repeat(len - str.length) + str;
 }
 
@@ -32,8 +35,10 @@ export function toHex(num, len = 8) {
   if (num instanceof Uint8Array) {
     let s = '';
     for (let i = 0; i < num.length; ++i) {
-      s += ' ';
-      s += _toHex(num[i], 2);
+      if (i > 0) {
+        s += ', ';
+      }
+      s += '0x' + _toHex(num[i], 2);
     }
     return s;
   }
