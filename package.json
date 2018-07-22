@@ -1,9 +1,17 @@
 {
   "name": "js-brook",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "octet and bit buffers",
-  "main": "index.js",
+  "main": "dist/main.js",
   "repository": "https://github.com/Piot/brook-js",
   "author": "Peter Bjorklund <piot@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "scripts": {
+    "build:dev": "webpack --mode development --progress --profile --colors",
+    "build:prod": "webpack --mode production --progress --profile --colors"
+  }
 }
