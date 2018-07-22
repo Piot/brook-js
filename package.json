@@ -1,6 +1,6 @@
 {
   "name": "js-brook",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "octet and bit buffers",
   "main": "dist/index.js",
   "repository": "https://github.com/Piot/brook-js",
