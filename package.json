@@ -10,11 +10,12 @@
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"
   },
+  "devDependencies": {
+    "rollup": "^0.63.4",
+    "uglify-es": "^3.3.9"
+  },
   "scripts": {
     "build:dev": "rollup src/index.js --file dist/index.js --format es",
-    "build:prod": "rollup src/index.js --file dist/index.js --format es && uglifyjs dist/index.js --output dist/index.js"
-  },
-  "devDependencies": {
-    "uglify-es": "^3.3.9"
+    "build:prod": "rollup src/index.js --file dist/index.js --format es && uglifyjs dist/index.js --output dist/index.js --beautify beautify=false,quote_style=3"
   }
 }
