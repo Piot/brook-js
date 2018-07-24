@@ -1,0 +1,6 @@
+{
+    "mangle": true,
+    "compress": {
+        "warnings": true
+    }
+}

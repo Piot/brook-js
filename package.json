@@ -7,7 +7,7 @@
   "author": "Peter Bjorklund <piot@hotmail.com>",
   "license": "MIT",
   "files": [
-    "dist/*"
+    "dist/"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -16,6 +16,6 @@
   },
   "scripts": {
     "build:dev": "rollup src/index.js --file dist/index.js --format es",
-    "build:prod": "rollup src/index.js --file dist/index.js --format es && uglifyjs dist/index.js --output dist/index.js --beautify beautify=false,quote_style=3"
+    "build:prod": "rollup src/index.js --file dist/index.js --format es && uglifyjs dist/index.js --output dist/index.js --config-file=config/uglify.config.json"
   }
 }
