@@ -23,19 +23,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-import {
-  toHex
-} from './utility.js'
+import { toHex } from './utility.js';
 
 export class InBitStream {
-
   constructor(uint8Array, bitCount) {
     if (!Number.isInteger(bitCount)) {
       throw 'bitcount must be integer';
     }
-    const validType = (uint8Array instanceof Uint8Array);
+    const validType = uint8Array instanceof Uint8Array;
     if (!validType) {
-      throw "Invalid octetArray. Must be Uint8Array";
+      throw 'Invalid octetArray. Must be Uint8Array';
     }
     this.octetArrayIndex = 0;
     this.position = 0;
@@ -66,7 +63,7 @@ export class InBitStream {
     if (this.remainingBitCount === 0) {
       this._fillAccumulator();
       if (this.remainingBitCount === 0) {
-        throw "Read too far";
+        throw 'Read too far';
       }
     }
 
@@ -81,7 +78,9 @@ export class InBitStream {
 
     const remainingBitsToRead = requestedBitCount - bitsConsumed;
     if (remainingBitsToRead > 0) {
-      return (value << remainingBitsToRead) | this._readBits(remainingBitsToRead);
+      return (
+        (value << remainingBitsToRead) | this._readBits(remainingBitsToRead)
+      );
     }
     return value;
   }

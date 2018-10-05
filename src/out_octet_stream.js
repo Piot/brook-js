@@ -58,11 +58,14 @@ export class OutOctetStream {
   }
 
   copyArrayBuffer(src, len) {
-    return src.slice(0, len)
+    return src.slice(0, len);
   }
 
   close() {
-    const copyOfArrayBuffer = this.copyArrayBuffer(this.view.buffer, this.position);
+    const copyOfArrayBuffer = this.copyArrayBuffer(
+      this.view.buffer,
+      this.position
+    );
     const octet = new Uint8Array(copyOfArrayBuffer);
     return octet;
   }

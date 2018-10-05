@@ -28,7 +28,7 @@ function _toHex(num, len) {
   if (len < str.length) {
     return str;
   }
-  return "0".repeat(len - str.length) + str;
+  return '0'.repeat(len - str.length) + str;
 }
 
 export function toHex(num, len = 8) {

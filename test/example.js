@@ -47,118 +47,118 @@ import {
   toHex
 } from '../src/utility.js'
 
-function test1() {
-  let s = new OutOctetStream();
-  s.writeUint8(0xff);
-  s.writeUint16(0xcafe);
-  s.writeUint32(0xcd31fefe);
-  const payload = s.close();
-  console.log('Payload:', payload);
+function test1 () {
+  let s = new OutOctetStream()
+  s.writeUint8(0xff)
+  s.writeUint16(0xcafe)
+  s.writeUint32(0xcd31fefe)
+  const payload = s.close()
+  console.log('Payload:', payload)
 
-  let inStream = new InOctetStream(payload);
-  const ax = inStream.readUint8();
-  const bx = inStream.readUint16();
-  const cx = inStream.readUint32();
+  let inStream = new InOctetStream(payload)
+  const ax = inStream.readUint8()
+  const bx = inStream.readUint16()
+  const cx = inStream.readUint32()
 
-  console.log('result:', ax.toString(16), bx.toString(16), cx.toString(16));
+  console.log('result:', ax.toString(16), bx.toString(16), cx.toString(16))
 }
 
-function testInBit() {
-  const array = new Uint8Array([0xff, 0x33]);
-  let s = new InBitStream(array);
-  const bits = s.readBits(11);
-  console.log('bits:', bits);
+function testInBit () {
+  const array = new Uint8Array([0xff, 0x33])
+  let s = new InBitStream(array)
+  const bits = s.readBits(11)
+  console.log('bits:', bits)
 }
 
-function testInBit24() {
-  const array = new Uint8Array([0x81, 0xd7, 0x0a, 0x1d, 0xa0, 0x6d, 0x3b, 0x40, 0xda, 0x00]);
-  let s = new InBitStream(array, 24 * 3 + 1);
-  const w = s.readBits(1);
-  const x = s.readSigned(24);
-  const y = s.readSigned(24);
-  const z = s.readSigned(24);
-  console.log('x,y,z:', x, y, z);
+function testInBit24 () {
+  const array = new Uint8Array([0x81, 0xd7, 0x0a, 0x1d, 0xa0, 0x6d, 0x3b, 0x40, 0xda, 0x00])
+  let s = new InBitStream(array, 24 * 3 + 1)
+  const w = s.readBits(1)
+  const x = s.readSigned(24)
+  const y = s.readSigned(24)
+  const z = s.readSigned(24)
+  console.log('x,y,z:', x, y, z)
 }
 
-function writeV(s, v) {
-  const maxValue = 8388608;
-  const bits = parseInt((v * maxValue) / 2400.0);
-  console.log('bits', bits, v);
-  s.writeSigned(bits, 24);
+function writeV (s, v) {
+  const maxValue = 8388608
+  const bits = parseInt((v * maxValue) / 2400.0)
+  console.log('bits', bits, v)
+  s.writeSigned(bits, 24)
 }
 
-function testOutBit24() {
-  let s = new OutBitStream();
-  s.writeBits(1, 1);
+function testOutBit24 () {
+  let s = new OutBitStream()
+  s.writeBits(1, 1)
 
-  writeV(s, 69.0);
-  writeV(s, 1111.0);
-  writeV(s, 2222.0);
+  writeV(s, 69.0)
+  writeV(s, 1111.0)
+  writeV(s, 2222.0)
 
-  const payload = s.close();
-  console.log('o:', toHex(payload), s.bitCount());
+  const payload = s.close()
+  console.log('o:', toHex(payload), s.bitCount())
 }
 
-function testOutBit() {
-  let s = new OutBitStream();
-  s.writeBits(0x0fe, 9);
-  const payload = s.close();
-  console.log('bits:', payload, s.bitCount());
+function testOutBit () {
+  let s = new OutBitStream()
+  s.writeBits(0x0fe, 9)
+  const payload = s.close()
+  console.log('bits:', payload, s.bitCount())
 }
 
-function testDebugInBitStream() {
-  const array = new Uint8Array([0x71, 0x70, 0xA8]);
-  let r = new InBitStream(array, 22);
-  let s = new DebugInBitStream(r);
-  const bits = s.readBits(11);
+function testDebugInBitStream () {
+  const array = new Uint8Array([0x71, 0x70, 0xA8])
+  let r = new InBitStream(array, 22)
+  let s = new DebugInBitStream(r)
+  const bits = s.readBits(11)
   if (bits !== 1066) {
     throw 'wrong debug'
   }
-  console.log('bits:', bits);
+  console.log('bits:', bits)
 }
 
-function testInOutBit() {
-  let o = new OutBitStream();
-  o.writeBits(0x0fe, 9);
-  o.writeBits(0xc0ca, 16);
-  o.writeBits(0xfade, 16);
-  const payload = o.close();
+function testInOutBit () {
+  let o = new OutBitStream()
+  o.writeBits(0x0fe, 9)
+  o.writeBits(0xc0ca, 16)
+  o.writeBits(0xfade, 16)
+  const payload = o.close()
 
-  let i = new InBitStream(payload, o.bitCount());
-  const bits = i.readBits(9);
+  let i = new InBitStream(payload, o.bitCount())
+  const bits = i.readBits(9)
   if (bits !== 0x0fe) {
-    throw 'Bad';
+    throw 'Bad'
   }
-  const first = i.readBits(16);
+  const first = i.readBits(16)
   if (first !== 0xc0ca) {
-    throw 'Bad';
+    throw 'Bad'
   }
-  const second = i.readUint16();
-  console.log('read:', toHex(second));
+  const second = i.readUint16()
+  console.log('read:', toHex(second))
   if (second !== 0xfade) {
-    throw 'Bad';
+    throw 'Bad'
   }
 }
 
-function testInOctet() {
-  const array = new Uint8Array([0xff, 0x33, 0x48, 0xca]);
-  let o = new OutOctetStream();
-  o.writeOctets(array);
-  const payload = o.close();
+function testInOctet () {
+  const array = new Uint8Array([0xff, 0x33, 0x48, 0xca])
+  let o = new OutOctetStream()
+  o.writeOctets(array)
+  const payload = o.close()
 
-  const i = new InOctetStream(payload);
-  i.readUint8();
-  const octets = i.readOctets(2);
+  const i = new InOctetStream(payload)
+  i.readUint8()
+  const octets = i.readOctets(2)
   if (octets.length !== 2) {
-    throw 'wrong size';
+    throw 'wrong size'
   }
   if (octets[0] !== 0x33 || octets[1] !== 0x48) {
-    throw 'wrong octet';
+    throw 'wrong octet'
   }
 
-  console.log('octet', octets);
+  console.log('octet', octets)
 }
 
-testOutBit24();
-testInBit24();
+testOutBit24()
+testInBit24()
 // testInOctet();

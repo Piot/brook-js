@@ -23,12 +23,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-import {
-  toHex
-} from './utility.js'
+import { toHex } from './utility.js';
 
 export class DebugInBitStream {
-
   constructor(bitStream) {
     this.bitStream = bitStream;
   }
@@ -61,7 +58,7 @@ export class DebugInBitStream {
   }
 
   readInt8() {
-    throw 'not implemented readInt8'
+    throw 'not implemented readInt8';
   }
 
   readUint16() {
@@ -80,7 +77,7 @@ export class DebugInBitStream {
   }
 
   readInt32() {
-    throw 'not implemented readInt32'
+    throw 'not implemented readInt32';
   }
 
   readSigned(bitCount) {

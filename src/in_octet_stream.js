@@ -54,7 +54,10 @@ export class InOctetStream {
   }
 
   readOctets(octetLength) {
-    const sliced = this.buffer.slice(this.position, this.position + octetLength);
+    const sliced = this.buffer.slice(
+      this.position,
+      this.position + octetLength
+    );
     const octetArray = new Uint8Array(sliced);
     this.position += octetLength;
     return octetArray;
@@ -64,5 +67,4 @@ export class InOctetStream {
     readUint32(a);
     readUint32(0);
   }
-
 }

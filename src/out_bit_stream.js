@@ -60,7 +60,7 @@ export class OutBitStream {
       this.array[this.arrayIndex++] = (this.accumulator & 0xff000000) >> 24;
       this.array[this.arrayIndex++] = (this.accumulator & 0x00ff0000) >> 16;
       this.array[this.arrayIndex++] = (this.accumulator & 0x0000ff00) >> 8;
-      this.array[this.arrayIndex++] = (this.accumulator & 0x000000ff);
+      this.array[this.arrayIndex++] = this.accumulator & 0x000000ff;
       this.accumulator = 0;
       this.bitCountWritten = 0;
     }
@@ -103,7 +103,7 @@ export class OutBitStream {
   }
 
   copyArrayBuffer(src, len) {
-    return src.slice(0, len)
+    return src.slice(0, len);
   }
 
   tell() {
@@ -125,5 +125,4 @@ export class OutBitStream {
   bitCount() {
     return this.position;
   }
-
 }
